@@ -35,7 +35,7 @@ public class AIAgent : MonoBehaviour {
 	void ChooseAction(){
 		// greedy action
 		AIAction chosenAction = RetrieveNthHighestProbabilityAction(0);
-
+		Debug.Log("nameeeee" + chosenAction.name);
 		switch( chosenAction.name ){
 		case "jump" :
 			MyPlayer.PlayerJump();
