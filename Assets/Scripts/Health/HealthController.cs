@@ -24,7 +24,6 @@ public class HealthController : MonoBehaviour {
 	}
 
 	void DecrementHealth(){
-
 		health --;
 
 		if(health < 0){

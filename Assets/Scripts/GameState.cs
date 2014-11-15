@@ -5,6 +5,13 @@ public class GameState : MonoBehaviour {
 
 	public PlayerController PlayerOne;
 
+	public State currentState = State.inStart;
+
+	public enum State{
+		inStart,
+		inGame,
+		inEnd
+	}
 
 	public static GameState _instance;
 
@@ -31,6 +38,6 @@ public class GameState : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

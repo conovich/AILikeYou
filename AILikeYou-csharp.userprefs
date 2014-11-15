@@ -1,31 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AI/AIAgent.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../phillygamejam2014/Assets/game/scripts/game/proceduralArena/ArenaGenerator.cs">
     <Files>
-      <File FileName="Assets/Scripts/AI/AIReaderRecorder.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/MovementControls.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/AttackDefenseControls.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameState.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AI/AIController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AI/AIAction.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AI/AIAgent.cs" Line="100" Column="3" />
-      <File FileName="Assets/Scripts/Player/Puncher.cs" Line="1" Column="1" />
+      <File FileName="../phillygamejam2014/Assets/game/scripts/game/proceduralArena/ArenaGenerator.cs" Line="26" Column="22" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/Corey/AILikeYou/Assets/Scripts/Puncher.cs" line="38" />
-      <Breakpoint file="/Users/Corey/AILikeYou/Assets/Scripts/Player/AttackDefenseControls.cs" line="109" />
-      <Breakpoint file="/Users/Corey/AILikeYou/Assets/Scripts/AI/AIAction.cs" line="46" />
-      <Breakpoint file="/Users/Corey/AILikeYou/Assets/Scripts/AI/AIController.cs" line="149" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
