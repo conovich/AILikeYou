@@ -66,10 +66,8 @@ public class GameState_TurretTag : MonoBehaviour {
 
 	void UpdateInGame(){
 		if(CheckIfTurretTagged()){
-			Debug.Log("OH HAI");
 			StartCoroutine(EndGame());
 		}
-		Debug.Log(PlayerOne.healthState);
 		if(PlayerOne.healthState <= 0){
 			StartCoroutine(EndGame());
 		}

@@ -38,13 +38,14 @@ public class HealthBar : MonoBehaviour {
 		if(currentHealthIndex >= 0 && currentHealthIndex < myHealthController.maxHealth){
 			healthNodes[currentHealthIndex].TurnOn(false);
 			currentHealthIndex--;
+			if(currentHealthIndex < 0){
+				currentHealthIndex = 0;
+			}
 		}
 	}
 	
 	public void IncrementHealth(){
-		if(currentHealthIndex+1 >= 0 && currentHealthIndex+1 < myHealthController.maxHealth){
-			healthNodes[currentHealthIndex].TurnOn(true);
-			currentHealthIndex++;
-		}
+		currentHealthIndex++;
+		healthNodes[currentHealthIndex].TurnOn(true);
 	}
 }

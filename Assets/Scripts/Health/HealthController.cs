@@ -41,9 +41,11 @@ public class HealthController : MonoBehaviour {
 	}
 
 	public void Reset(){
-		while (currentHealth < maxHealth){
+		int healthNeeded = maxHealth - currentHealth;
+		for(int i = 0; i < healthNeeded; i++){
 			AddHealthDelegate();
 		}
 	}
+
 	
 }
