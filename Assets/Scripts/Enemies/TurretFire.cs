@@ -9,6 +9,9 @@ public class TurretFire : MonoBehaviour {
 	public Transform bulletSpawnTransform;
 
 	public float forwardOffset;
+
+
+	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
 	
 	// Use this for initialization
 	void Start () {
@@ -28,10 +31,12 @@ public class TurretFire : MonoBehaviour {
 	}*/
 
 	void FireBullet(){
+		if(game.currentState == GameState_TurretTag.State.InGame){
 			GameObject newBullet = Instantiate(bullet, bulletSpawnTransform.position + bulletSpawnTransform.forward*forwardOffset, transform.rotation) as GameObject;
 			
 			Vector3 firingDirection = bulletSpawnTransform.forward;
 			
 			newBullet.GetComponent<Bullet>().Fire(firingDirection*firingSpeed);
+		}
 	}
 }
