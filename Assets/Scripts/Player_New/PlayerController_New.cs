@@ -4,6 +4,10 @@ using System.Collections;
 public class PlayerController_New : MonoBehaviour {
 	public bool OVERRIDE_KEYPRESS_CONTROLS;
 
+	public GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
+
+	public HealthController myHealthController;
+
 	public Shield shield;
 	public float jumpHeight;
 	public float duckScale;
@@ -16,35 +20,79 @@ public class PlayerController_New : MonoBehaviour {
 	public bool hasTaggedTurret;
 
 	//STATE VARIABLES
-	public int healthState;
-	public int xPosition;
-	public int turretHealth;
-	public int distanceToTurret;
-	public int distanceToBullet;
+	public int healthState{ get{ return myHealthController.currentHealth; } }
+	public int xPosition = 0;
+	public int turretHealth { get { return game.TurretOne.healthState; } }
+	public int distanceToTurret { get { return CalculateDistanceToTurret(); } }
+	public int distanceToBullet { get { return CalculateDistanceToBullet(); } }
 	public int bulletHeight;
 	
 
+	Vector3 initPosition;
+
+	float moveIncrement = 1;
+
 	// Use this for initialization
 	void Start () {
-
+		initPosition = transform.position;
 	}
-	
+
+	public void Reset(){
+		transform.position = initPosition;
+		myHealthController.Reset();
+		hasTaggedTurret = false;
+	}
+
 	// Update is called once per frame
 	void Update () {
-		if(!OVERRIDE_KEYPRESS_CONTROLS){
+		if(!OVERRIDE_KEYPRESS_CONTROLS && game.currentState == GameState_TurretTag.State.InGame){
 			GetAttackDefenseInput();
 			GetMovementInput();
 		}
-		//CheckMovesOver();
+	}
+
+	int CalculateDistanceToTurret(){
+		int distance = -1;
+
+		float worldDistance = (transform.position - game.TurretOne.transform.position).magnitude;
+		distance = (int)(worldDistance / moveIncrement);
+
+		distance--; //for collider range
+
+		return distance;
+
+	}
+
+	int CalculateDistanceToBullet(){
+		int distance = -1;
+
+		Bullet[] bullets = GameObject.FindObjectsOfType<Bullet>();
+		float worldDistance = -1;
+
+		for(int i = 0; i < bullets.Length; i++){
+			float tempDistance = (transform.position - bullets[i].transform.position).magnitude;
+
+			if(tempDistance < worldDistance || worldDistance == -1){
+				worldDistance = tempDistance;
+			}
+		}
+
+		if(worldDistance != -1){
+			distance = (int)(worldDistance / moveIncrement);
+			distance--; //for collider range
+		}
+
+		return distance;
+		
 	}
 
 	void GetMovementInput(){
 		//myMovementControls.GetInput(); 
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
-			transform.position += Vector3.right;
+			transform.position += Vector3.right*moveIncrement;
 		}
 		else if(Input.GetKeyDown(KeyCode.LeftArrow)){
-			transform.position += Vector3.left;
+			transform.position += Vector3.left*moveIncrement;
 		}
 	}
 
@@ -70,7 +118,7 @@ public class PlayerController_New : MonoBehaviour {
 			GetComponent<HealthController>().RemoveHealthDelegate();
 			//IsHit = true;
 		}
-		else if(collision.collider.tag == "Turret"){
+		if(collision.collider.tag == "Turret"){
 			hasTaggedTurret = true;
 		}
 		collision.gameObject.SendMessage("Die", SendMessageOptions.DontRequireReceiver);

@@ -9,13 +9,13 @@ public class HealthController : MonoBehaviour {
 	public delegate void AddHealth();
 	public AddHealth AddHealthDelegate;
 
-	int health;
+	public int currentHealth;
 
 	// Use this for initialization
 	void Start () {
 		RemoveHealthDelegate += DecrementHealth;
 		AddHealthDelegate += IncrementHealth;
-		health = maxHealth;
+		currentHealth = maxHealth;
 	}
 	
 	// Update is called once per frame
@@ -24,19 +24,25 @@ public class HealthController : MonoBehaviour {
 	}
 
 	void DecrementHealth(){
-		health --;
+		currentHealth --;
 
-		if(health < 0){
-			health = 0;
+		if(currentHealth < 0){
+			currentHealth = 0;
 		}
 	}
 
 	void IncrementHealth(){
 
-		health ++;
+		currentHealth ++;
 
-		if(health > maxHealth){
-			health = maxHealth;
+		if(currentHealth > maxHealth){
+			currentHealth = maxHealth;
+		}
+	}
+
+	public void Reset(){
+		while (currentHealth < maxHealth){
+			AddHealthDelegate();
 		}
 	}
 	

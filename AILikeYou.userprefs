@@ -1,15 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player_New/Turret.cs">
     <Files>
-      <File FileName="Assets/Scripts/EnemyController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AI/AIAgent.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameState.cs" Line="6" Column="39" />
-      <File FileName="Assets/Scripts/Player/AttackDefenseControls.cs" Line="97" Column="3" />
-      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="141" Column="4" />
-      <File FileName="Assets/Scripts/Player_New/PlayerController_New.cs" Line="74" Column="27" />
-      <File FileName="Assets/Scripts/Player/MovementControls.cs" Line="118" Column="3" />
-      <File FileName="Assets/Scripts/Health/HealthController.cs" Line="26" Column="25" />
+      <File FileName="Assets/Scripts/Player_New/GameState_TurretTag.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/UI/HoverColor.cs" Line="26" Column="5" />
+      <File FileName="Assets/Scripts/SceneStateController.cs" Line="34" Column="1" />
+      <File FileName="Assets/Scripts/ColorLerper_Picker.cs" Line="22" Column="2" />
+      <File FileName="Assets/Scripts/Player_New/Turret.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\AI\AIReaderRecorder.cs" />
      <Compile Include="Assets\Scripts\AI\PositionLerper.cs" />
      <Compile Include="Assets\Scripts\ColorLerper.cs" />
+     <Compile Include="Assets\Scripts\ColorLerper_Picker.cs" />
      <Compile Include="Assets\Scripts\Enemies\Bullet.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\Enemies\TurretFire.cs" />
@@ -68,10 +69,14 @@
      <Compile Include="Assets\Scripts\Player\Shield.cs" />
      <Compile Include="Assets\Scripts\Player_New\GameState_TurretTag.cs" />
      <Compile Include="Assets\Scripts\Player_New\PlayerController_New.cs" />
+     <Compile Include="Assets\Scripts\Player_New\Turret.cs" />
      <Compile Include="Assets\Scripts\RandomLinearMover.cs" />
      <Compile Include="Assets\Scripts\RandomOscillator.cs" />
      <Compile Include="Assets\Scripts\SceneStateController.cs" />
      <Compile Include="Assets\Scripts\TrailRendererController.cs" />
+     <Compile Include="Assets\Scripts\UI\Button.cs" />
+     <Compile Include="Assets\Scripts\UI\HoverColor.cs" />
+     <Compile Include="Assets\Scripts\UI\HoverIndicator.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Textures\congruent_outline\readme.txt" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
