@@ -140,7 +140,7 @@ public class PlayerController_New : MonoBehaviour {
 	}
 
 	public void PlayerJump(){
-		if(!isJumping){
+		if(!isJumping && !isDucking){ //shouldn't duck and jump at the same time
 			StartCoroutine(Jump ());
 		}
 	}
@@ -157,7 +157,7 @@ public class PlayerController_New : MonoBehaviour {
 	}
 
 	public void PlayerDuck(){
-		if(!isDucking){
+		if(!isDucking && !isJumping){ //shouldn't duck and jump at the same time
 			StartCoroutine(Duck());
 		}
 	}
