@@ -26,21 +26,34 @@ public class PlayerController_New : MonoBehaviour {
 	public int distanceToTurret { get { return CalculateDistanceToTurret(); } }
 	public int distanceToBullet { get { return CalculateDistanceToBullet(); } }
 	public int bulletHeight;
-	
+
+
+	//COST VARIABLES
+	int jumpCost = 1;
+	int duckCost = 1;
+	int moveCost = 1;
+	int shieldCost = 1; //TODO: increase as distance to turret decreases
+	int hitCost = 1; //TODO: increase as distance decreases
+
+	int costIncrement = 1;
 
 	Vector3 initPosition;
 
 	float moveIncrement = 1;
+	int maxDistance;
 
 	// Use this for initialization
 	void Start () {
 		initPosition = transform.position;
+		maxDistance = distanceToTurret;
 	}
 
 	public void Reset(){
 		transform.position = initPosition;
 		myHealthController.Reset();
 		hasTaggedTurret = false;
+		shieldCost = 1;
+		hitCost = 1;
 	}
 
 	// Update is called once per frame
@@ -48,6 +61,34 @@ public class PlayerController_New : MonoBehaviour {
 		if(!OVERRIDE_KEYPRESS_CONTROLS && game.currentState == GameState_TurretTag.State.InGame){
 			GetAttackDefenseInput();
 			GetMovementInput();
+		}
+	}
+
+	void DoShadowCost(int cost){
+		for(int i = 0; i < cost; i++){
+			myHealthController.RemoveHealthDelegate();
+		}
+	}
+
+	void AddToShadowCosts_Distance(){
+		Debug.Log("dist to turret" + distanceToTurret);
+		if(distanceToTurret > 1 && distanceToTurret < maxDistance){
+			hitCost += costIncrement;
+			shieldCost += costIncrement;
+			Debug.Log("adding cost");
+			Debug.Log("hitCost" + hitCost);
+			Debug.Log("shieldCost" + shieldCost);
+		}
+	}
+
+	void SubFromShadowCosts_Distance(){
+		Debug.Log("dist to turret" + distanceToTurret);
+		if(distanceToTurret > 1 && distanceToTurret <= maxDistance){
+			hitCost -= costIncrement;
+			shieldCost -= costIncrement;
+			Debug.Log("removing cost");
+			Debug.Log("hitCost" + hitCost);
+			Debug.Log("shieldCost" + shieldCost);
 		}
 	}
 
@@ -90,9 +131,13 @@ public class PlayerController_New : MonoBehaviour {
 		//myMovementControls.GetInput(); 
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
 			transform.position += Vector3.right*moveIncrement;
+			DoShadowCost(moveCost);
+			AddToShadowCosts_Distance();
 		}
 		else if(Input.GetKeyDown(KeyCode.LeftArrow)){
 			transform.position += Vector3.left*moveIncrement;
+			DoShadowCost(moveCost);
+			SubFromShadowCosts_Distance();
 		}
 	}
 
@@ -115,7 +160,8 @@ public class PlayerController_New : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision){
 		if(collision.collider.tag == "Bullet" && !shieldOn){
-			GetComponent<HealthController>().RemoveHealthDelegate();
+			DoShadowCost(hitCost);
+			//GetComponent<HealthController>().RemoveHealthDelegate();
 			//IsHit = true;
 		}
 		if(collision.collider.tag == "Turret"){
@@ -127,6 +173,7 @@ public class PlayerController_New : MonoBehaviour {
 
 	public void PlayerShieldOn(){
 		if(!shieldOn){
+			DoShadowCost(shieldCost);
 			shieldOn = true;
 			shield.Activate();
 		}
@@ -141,6 +188,7 @@ public class PlayerController_New : MonoBehaviour {
 
 	public void PlayerJump(){
 		if(!isJumping && !isDucking){ //shouldn't duck and jump at the same time
+			DoShadowCost(jumpCost);
 			StartCoroutine(Jump ());
 		}
 	}
@@ -158,6 +206,7 @@ public class PlayerController_New : MonoBehaviour {
 
 	public void PlayerDuck(){
 		if(!isDucking && !isJumping){ //shouldn't duck and jump at the same time
+			DoShadowCost(duckCost);
 			StartCoroutine(Duck());
 		}
 	}
