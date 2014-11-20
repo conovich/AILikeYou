@@ -32,8 +32,8 @@ public class PlayerController_New : MonoBehaviour {
 	int jumpCost = 1;
 	int duckCost = 1;
 	int moveCost = 1;
-	int shieldCost = 1; //TODO: increase as distance to turret decreases
-	int hitCost = 1; //TODO: increase as distance decreases
+	int shieldCost = 1;
+	int hitCost = 1;
 
 	int costIncrement = 1;
 
