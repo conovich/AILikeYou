@@ -33,7 +33,7 @@ public class PlayerController_New : MonoBehaviour {
 	int duckCost = 1;
 	int moveCost = 1;
 	int shieldCost = 1;
-	int hitCost = 1;
+	public int hitCost = 1;
 
 	int costIncrement = 1;
 
@@ -71,24 +71,24 @@ public class PlayerController_New : MonoBehaviour {
 	}
 
 	void AddToShadowCosts_Distance(){
-		Debug.Log("dist to turret" + distanceToTurret);
+		//Debug.Log("dist to turret" + distanceToTurret);
 		if(distanceToTurret > 1 && distanceToTurret < maxDistance){
 			hitCost += costIncrement;
 			shieldCost += costIncrement;
-			Debug.Log("adding cost");
-			Debug.Log("hitCost" + hitCost);
-			Debug.Log("shieldCost" + shieldCost);
+			//Debug.Log("adding cost");
+			//Debug.Log("hitCost" + hitCost);
+			//Debug.Log("shieldCost" + shieldCost);
 		}
 	}
 
 	void SubFromShadowCosts_Distance(){
-		Debug.Log("dist to turret" + distanceToTurret);
+		//Debug.Log("dist to turret" + distanceToTurret);
 		if(distanceToTurret > 1 && distanceToTurret <= maxDistance){
 			hitCost -= costIncrement;
 			shieldCost -= costIncrement;
-			Debug.Log("removing cost");
-			Debug.Log("hitCost" + hitCost);
-			Debug.Log("shieldCost" + shieldCost);
+			//Debug.Log("removing cost");
+			//Debug.Log("hitCost" + hitCost);
+			//Debug.Log("shieldCost" + shieldCost);
 		}
 	}
 
@@ -131,7 +131,9 @@ public class PlayerController_New : MonoBehaviour {
 		//myMovementControls.GetInput(); 
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
 			transform.position += Vector3.right*moveIncrement;
+			Debug.Log("initial health" + healthState);
 			DoShadowCost(moveCost);
+			Debug.Log("initial health" + healthState);
 			AddToShadowCosts_Distance();
 		}
 		else if(Input.GetKeyDown(KeyCode.LeftArrow)){
@@ -159,7 +161,7 @@ public class PlayerController_New : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if(collision.collider.tag == "Bullet" && !shieldOn){
+		if((collision.collider.tag == "Bullet" || collision.collider.tag == "BulletRebound") && !shieldOn){
 			DoShadowCost(hitCost);
 			//GetComponent<HealthController>().RemoveHealthDelegate();
 			//IsHit = true;

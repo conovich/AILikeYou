@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	public float lifeTime;
+	
+	public int reboundShadowCost = 0;
+
+	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
 
 	// Use this for initialization
 	void Start () {
@@ -27,13 +31,12 @@ public class Bullet : MonoBehaviour {
 			PlayerController_New playerController = collision.gameObject.GetComponent<PlayerController_New>();
 			if( playerController.shieldOn ){
 				rigidbody.velocity *= -1;
+				tag = "BulletRebound";
+				reboundShadowCost = game.PlayerOne.hitCost;
 			}
 			else{
 				Die ();
 			}
-		}
-		else{
-			Die ();
 		}
 	}
 
