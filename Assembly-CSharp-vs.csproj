@@ -67,9 +67,11 @@
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\Puncher.cs" />
      <Compile Include="Assets\Scripts\Player\Shield.cs" />
+     <Compile Include="Assets\Scripts\Player_New\AIAction_New.cs" />
+     <Compile Include="Assets\Scripts\Player_New\AIController_New.cs" />
+     <Compile Include="Assets\Scripts\Player_New\AIReaderRecorder_New.cs" />
      <Compile Include="Assets\Scripts\Player_New\GameState_TurretTag.cs" />
      <Compile Include="Assets\Scripts\Player_New\PlayerController_New.cs" />
-     <Compile Include="Assets\Scripts\Player_New\PlayerStateController.cs" />
      <Compile Include="Assets\Scripts\Player_New\Turret.cs" />
      <Compile Include="Assets\Scripts\RandomLinearMover.cs" />
      <Compile Include="Assets\Scripts\RandomOscillator.cs" />

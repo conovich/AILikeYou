@@ -23,6 +23,18 @@ public class Bullet : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision){
 		//TODO: Die() when we hit anything other than the turret this came from
+		if(collision.gameObject.tag == "Player"){
+			PlayerController_New playerController = collision.gameObject.GetComponent<PlayerController_New>();
+			if( playerController.shieldOn ){
+				rigidbody.velocity *= -1;
+			}
+			else{
+				Die ();
+			}
+		}
+		else{
+			Die ();
+		}
 	}
 
 	IEnumerator Life(){

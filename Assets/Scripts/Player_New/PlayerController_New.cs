@@ -167,7 +167,6 @@ public class PlayerController_New : MonoBehaviour {
 		if(collision.collider.tag == "Turret"){
 			hasTaggedTurret = true;
 		}
-		collision.gameObject.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
 	}
 
 
