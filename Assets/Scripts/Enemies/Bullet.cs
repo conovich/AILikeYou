@@ -2,27 +2,43 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
+	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
+
 	public float lifeTime;
 	
 	public int reboundShadowCost = 0;
 
-	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
+	Transform midHeightTransform { get { return game.TurretOne.MidTransform; } }
+
+	public enum Height{
+		none, //0
+		low, //1
+		high //2
+	}
 
 	// Use this for initialization
 	void Start () {
-
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		//Debug.Log("bullet pos" + transform.position.y + "mid height" + midHeightTransform.position.y);
 	}
 
 
 	public void Fire(Vector3 firingVelocity){
 		rigidbody.velocity = firingVelocity;
 		StartCoroutine(Life ());
+	}
+
+	public int GetHeight(){ //MUST BE FROM 0-2
+		if(transform.position.y > midHeightTransform.position.y){
+			return (int)(Height.high);
+		}
+		else{
+			return (int)(Height.low);
+		}
 	}
 
 	void OnCollisionEnter(Collision collision){

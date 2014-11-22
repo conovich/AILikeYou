@@ -25,7 +25,7 @@ public class PlayerController_New : MonoBehaviour {
 	public int turretHealth { get { return game.TurretOne.healthState; } }
 	public int distanceToTurret { get { return CalculateDistanceToTurret(); } }
 	public int distanceToBullet { get { return CalculateDistanceToBullet(); } }
-	public int bulletHeight;
+	public int bulletHeight { get { return CalculateBulletHeight(); } }
 
 
 	//COST VARIABLES
@@ -127,13 +127,33 @@ public class PlayerController_New : MonoBehaviour {
 		
 	}
 
+	int CalculateBulletHeight(){
+		Bullet[] bullets = GameObject.FindObjectsOfType<Bullet>();
+
+		//find closest bullet
+		if(bullets.Length  > 0){
+			Bullet closestBullet = bullets[0];
+			float closeDistance = (transform.position - bullets[0].transform.position).magnitude;
+			for(int i = 1; i < bullets.Length; i++){
+				float tempDistance = (transform.position - bullets[i].transform.position).magnitude;
+				
+				if(tempDistance < closeDistance){
+					closeDistance = tempDistance;
+					closestBullet = bullets[i];
+				}
+			}
+			return closestBullet.GetHeight();
+		}
+		else{
+			return 0;
+		}
+	}
+
 	void GetMovementInput(){
 		//myMovementControls.GetInput(); 
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
 			transform.position += Vector3.right*moveIncrement;
-			Debug.Log("initial health" + healthState);
 			DoShadowCost(moveCost);
-			Debug.Log("initial health" + healthState);
 			AddToShadowCosts_Distance();
 		}
 		else if(Input.GetKeyDown(KeyCode.LeftArrow)){

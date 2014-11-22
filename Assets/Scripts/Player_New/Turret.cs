@@ -5,6 +5,7 @@ public class Turret : MonoBehaviour {
 
 	public HealthController myHealthController;
 	public int healthState { get { return myHealthController.currentHealth; } }
+	public Transform MidTransform;
 
 	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
 	
