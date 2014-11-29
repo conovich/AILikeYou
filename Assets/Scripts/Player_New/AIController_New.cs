@@ -138,10 +138,12 @@ public class AIController_New: MonoBehaviour {
 
 	public GameObject FindInActionList(string name){
 		for(int i = 0; i < actionObjList.Count; i++){
-			if(actionObjList[i].name == name){
+			if(actionObjList[i].name == name || actionObjList[i].name == (name + "(Clone)")){
+				Debug.Log("found an object!" + actionObjList[i].name);
 				return actionObjList[i];
 			}
 		}
+		Debug.Log("null object, looking for" + name);
 		return null;
 	}
 
@@ -149,7 +151,7 @@ public class AIController_New: MonoBehaviour {
 		Debug.Log("updating POSITIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
-			actionToUpdate.GetComponent<AIAction>().UpdateWeightedProbability(Positive_reward);
+			actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Positive_reward);
 		}
 	}
 
@@ -157,7 +159,7 @@ public class AIController_New: MonoBehaviour {
 		Debug.Log("updating NEGATIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
-			actionToUpdate.GetComponent<AIAction>().UpdateWeightedProbability(Negative_reward);
+			actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Negative_reward);
 		}
 	}
 

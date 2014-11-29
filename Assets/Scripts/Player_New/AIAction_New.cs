@@ -76,11 +76,13 @@ public class AIAction_New : MonoBehaviour {
 	}
 
 	int GetHealthIndex(){
-		return (int)(player.myHealthController.currentHealth/10); //assuming maxHealth = 100
+		int index = (int)(player.myHealthController.currentHealth/10);
+		return index; //assuming maxHealth = 100
 	}
 
 	int GetTurretHealthIndex(){
-		return (int)(player.turretHealth/10); //assuming maxHealth = 100
+		int index = (int)(player.turretHealth/10);
+		return index; //assuming maxHealth = 100
 	}
 
 	int GetTurretDistanceIndex(){
@@ -95,6 +97,9 @@ public class AIAction_New : MonoBehaviour {
 		int distanceIndex = player.distanceToBullet;
 		if(distanceIndex > 10){
 			distanceIndex = 10;
+		}
+		if(distanceIndex < 0){ // if there is not bullet, treat it as though the bullet is the max distance away?
+			distanceIndex = 10;		//TODO: or should i treat it as though the bullet is at the turret? or zero away?
 		}
 		return distanceIndex;
 	}
