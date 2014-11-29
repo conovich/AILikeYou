@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AI\AIAction.cs" />
      <Compile Include="Assets\Scripts\AI\AIAgent.cs" />
+     <Compile Include="Assets\Scripts\AI\AIAgent_New.cs" />
      <Compile Include="Assets\Scripts\AI\AIController.cs" />
      <Compile Include="Assets\Scripts\AI\AIReaderRecorder.cs" />
      <Compile Include="Assets\Scripts\AI\PositionLerper.cs" />

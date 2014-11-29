@@ -8,6 +8,15 @@ public class PlayerController_New : MonoBehaviour {
 
 	public HealthController myHealthController;
 
+
+	public delegate void ReboundBullet();
+	public ReboundBullet ReboundBulletDelegate;
+	public delegate void MoveForward();
+	public ReboundBullet MoveForwardDelegate;
+	public delegate void MoveBackward();
+	public ReboundBullet MoveBackwardDelegate;
+
+
 	public Shield shield;
 	public float jumpHeight;
 	public float duckScale;
@@ -18,6 +27,8 @@ public class PlayerController_New : MonoBehaviour {
 	public bool isDucking;
 	public bool shieldOn;
 	public bool hasTaggedTurret;
+	public bool isMovingForward;
+	public bool isMovingBackward;
 
 	//STATE VARIABLES
 	public int healthState{ get{ return myHealthController.currentHealth; } }
@@ -152,15 +163,40 @@ public class PlayerController_New : MonoBehaviour {
 	void GetMovementInput(){
 		//myMovementControls.GetInput(); 
 		if(Input.GetKeyDown(KeyCode.RightArrow)){
-			transform.position += Vector3.right*moveIncrement;
-			DoShadowCost(moveCost);
-			AddToShadowCosts_Distance();
+			MoveRight();
 		}
 		else if(Input.GetKeyDown(KeyCode.LeftArrow)){
-			transform.position += Vector3.left*moveIncrement;
-			DoShadowCost(moveCost);
-			SubFromShadowCosts_Distance();
+			MoveLeft();
 		}
+	}
+
+	public void MoveRight(){
+		StartCoroutine(MoveForwardCoroutine());
+	}
+
+	IEnumerator MoveForwardCoroutine(){
+
+		isMovingForward = true;
+		MoveForwardDelegate(); //isMovingForward MUST BE TRUE BEFORE CALLING THIS
+		transform.position += Vector3.right*moveIncrement;
+		DoShadowCost(moveCost);
+		AddToShadowCosts_Distance();
+		yield return 0;
+		isMovingForward = false;
+	}
+
+	public void MoveLeft(){
+		StartCoroutine(MoveBackwardCoroutine());
+	}
+	
+	IEnumerator MoveBackwardCoroutine(){
+		isMovingBackward = true;
+		MoveBackwardDelegate(); //isMovingBackward MUST BE TRUE BEFORE CALLING THIS
+		transform.position += Vector3.left*moveIncrement;
+		DoShadowCost(moveCost);
+		SubFromShadowCosts_Distance();
+		yield return 0;
+		isMovingBackward = false;
 	}
 
 	void GetAttackDefenseInput(){
@@ -184,7 +220,6 @@ public class PlayerController_New : MonoBehaviour {
 		if((collision.collider.tag == "Bullet" || collision.collider.tag == "BulletRebound") && !shieldOn){
 			DoShadowCost(hitCost);
 			//GetComponent<HealthController>().RemoveHealthDelegate();
-			//IsHit = true;
 		}
 		if(collision.collider.tag == "Turret"){
 			hasTaggedTurret = true;

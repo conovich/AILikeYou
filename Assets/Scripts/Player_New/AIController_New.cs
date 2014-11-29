@@ -4,7 +4,19 @@ using System.Collections.Generic;
 using UnityEditor;
 
 public class AIController_New: MonoBehaviour {
-	
+	/*
+	class State{
+		public int healthIndex;
+		public int turretHealthIndex;
+		public int turretDistanceIndex;
+		public int bulletDistanceIndex;
+		public int bulletHeightIndex;
+	}
+
+	State lastState;
+*/
+	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
+
 	public PlayerController_New MyPlayer;
 	public AIReaderRecorder_New MyReaderRecorder;
 
@@ -16,6 +28,12 @@ public class AIController_New: MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		MyPlayer.myHealthController.RemoveHealthDelegate += CheckPlayerStatus_Negative;
+		MyPlayer.ReboundBulletDelegate += CheckPlayerStatus_Positive;
+		MyPlayer.MoveForwardDelegate += CheckPlayerStatus_Positive;
+		MyPlayer.MoveBackwardDelegate += CheckPlayerStatus_Negative;
+
 
 		if(ShouldCreateNewActions){
 			InstantiateNewActions();
@@ -71,22 +89,52 @@ public class AIController_New: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		CheckPlayerStatus();
+		//CheckPlayerStatus();
 	}
 
-	//TODO: REFACTOR THE HELL OUT OF THIS
-	void CheckPlayerStatus(){
-		/*if(MyPlayer.IsHit){
-	
+	//getting hurt
+	//moving further from target
+	void CheckPlayerStatus_Negative(){
+		Debug.Log("NEGATIVE PLAYER STATUS");
+		if(MyPlayer.shieldOn){
+			UpdateProbabilityNegative("shield");
 		}
-		if(MyPlayer.HasHitEnemy){
-
+		else if(MyPlayer.isJumping){
+			UpdateProbabilityNegative("jump");
 		}
-		
-		MyPlayer.IsHit = false;
-		MyPlayer.HasHitEnemy = false;
-		*/
+		else if(MyPlayer.isDucking){
+			UpdateProbabilityNegative("duck");
+		}
+		else if(MyPlayer.isMovingForward){
+			UpdateProbabilityNegative("moveForward");
+		}
+		else if(MyPlayer.isMovingBackward){
+			UpdateProbabilityNegative("moveBackward");
+		}
 	}
+
+	//hurting turret
+	//rebounding bullet (instead of hurting turret?)
+	//moving forward
+	void CheckPlayerStatus_Positive(){
+		Debug.Log("POSITIVE PLAYER STATUS");
+		if(MyPlayer.shieldOn){
+			UpdateProbabilityPositive("shield");
+		}
+		else if(MyPlayer.isJumping){
+			UpdateProbabilityPositive("jump");
+		}
+		else if(MyPlayer.isDucking){
+			UpdateProbabilityPositive("duck");
+		}
+		else if(MyPlayer.isMovingForward){
+			UpdateProbabilityPositive("moveForward");
+		}
+		else if(MyPlayer.isMovingBackward){
+			UpdateProbabilityPositive("moveBackward");
+		}
+	}
+
 
 	public GameObject FindInActionList(string name){
 		for(int i = 0; i < actionObjList.Count; i++){
@@ -98,7 +146,7 @@ public class AIController_New: MonoBehaviour {
 	}
 
 	public void UpdateProbabilityPositive(string actionName){
-		Debug.Log("updating POSITIVE probability");
+		Debug.Log("updating POSITIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
 			actionToUpdate.GetComponent<AIAction>().UpdateWeightedProbability(Positive_reward);
@@ -106,7 +154,7 @@ public class AIController_New: MonoBehaviour {
 	}
 
 	public void UpdateProbabilityNegative(string actionName){
-		Debug.Log("updating NEGATIVE probability");
+		Debug.Log("updating NEGATIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
 			actionToUpdate.GetComponent<AIAction>().UpdateWeightedProbability(Negative_reward);

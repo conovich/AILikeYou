@@ -46,14 +46,19 @@ public class Bullet : MonoBehaviour {
 		if(collision.gameObject.tag == "Player"){
 			PlayerController_New playerController = collision.gameObject.GetComponent<PlayerController_New>();
 			if( playerController.shieldOn ){
-				rigidbody.velocity *= -1;
-				tag = "BulletRebound";
-				reboundShadowCost = game.PlayerOne.hitCost;
+				Rebound ();
 			}
 			else{
 				Die ();
 			}
 		}
+	}
+
+	void Rebound(){
+		rigidbody.velocity *= -1;
+		tag = "BulletRebound";
+		reboundShadowCost = game.PlayerOne.hitCost;
+		game.PlayerOne.ReboundBulletDelegate();
 	}
 
 	IEnumerator Life(){

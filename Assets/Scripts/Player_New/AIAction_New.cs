@@ -60,7 +60,7 @@ public class AIAction_New : MonoBehaviour {
 		return q_probability;
 	}
 
-	//Qk=Qvk-1+a[rk-Qk-1]
+	//Qk=Qvk-1+a[rk-Qk-1]    ---> Qk=Qvk-1+a[rk-(maxOfFutureState)Qk-1]
 	public void UpdateWeightedProbability(float reward){
 
 		float q_probability = GetCurrentProbability();
