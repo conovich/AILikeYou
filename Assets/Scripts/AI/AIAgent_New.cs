@@ -34,7 +34,7 @@ public class AIAgent_New : MonoBehaviour {
 
 	void ChooseAction(){
 		// greedy action
-		AIAction_New chosenAction = RetrieveNthHighestProbabilityAction(0);
+		/*AIAction_New chosenAction = RetrieveNthHighestProbabilityAction(0);
 		Debug.Log("nameeeee" + chosenAction.name);
 		switch( chosenAction.name ){
 		case "jump" :
@@ -55,7 +55,10 @@ public class AIAgent_New : MonoBehaviour {
 		default:
 			Debug.Log("Name Doesn't Match!");
 		break;
-		}
+		}*/
+
+		//float sumQValues = 
+
 	}
 
 	//TODO: RE-IMPLEMENT

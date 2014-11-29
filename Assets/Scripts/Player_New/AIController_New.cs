@@ -139,16 +139,16 @@ public class AIController_New: MonoBehaviour {
 	public GameObject FindInActionList(string name){
 		for(int i = 0; i < actionObjList.Count; i++){
 			if(actionObjList[i].name == name || actionObjList[i].name == (name + "(Clone)")){
-				Debug.Log("found an object!" + actionObjList[i].name);
+				//Debug.Log("found an object!" + actionObjList[i].name);
 				return actionObjList[i];
 			}
 		}
-		Debug.Log("null object, looking for" + name);
+		//Debug.Log("null object, looking for" + name);
 		return null;
 	}
 
 	public void UpdateProbabilityPositive(string actionName){
-		Debug.Log("updating POSITIVE probability" + actionName);
+		//Debug.Log("updating POSITIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
 			actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Positive_reward);
@@ -156,7 +156,7 @@ public class AIController_New: MonoBehaviour {
 	}
 
 	public void UpdateProbabilityNegative(string actionName){
-		Debug.Log("updating NEGATIVE probability" + actionName);
+		//Debug.Log("updating NEGATIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
 		if(actionToUpdate != null){
 			actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Negative_reward);
@@ -164,18 +164,6 @@ public class AIController_New: MonoBehaviour {
 	}
 
 	public List<AIAction_New> GetAIActionList(){
-		/*Object[] AssetsInActionFolder = Resources.LoadAll("Prefabs/AIActions/" + newFolderName);
-		
-		List<AIAction_New> AIActionList = new List<AIAction_New>();
-		
-		for(int i = 0; i < AssetsInActionFolder.Length; i++){
-			if(PrefabUtility.GetPrefabType(AssetsInActionFolder[i]) != PrefabType.None){
-				AIAction_New action = ((GameObject)AssetsInActionFolder[i]).GetComponent<AIAction_New>();
-				if(action != null){
-					AIActionList.Add(action);
-				}
-			}
-		}*/
 		List<AIAction_New> AIActionList = new List<AIAction_New>();
 		for(int i = 0; i < transform.childCount; i++){
 			GameObject child = transform.GetChild(i).gameObject;

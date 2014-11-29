@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Player_New\AIAction_New.cs" />
      <Compile Include="Assets\Scripts\Player_New\AIController_New.cs" />
      <Compile Include="Assets\Scripts\Player_New\AIReaderRecorder_New.cs" />
+     <Compile Include="Assets\Scripts\Player_New\AIStateController.cs" />
      <Compile Include="Assets\Scripts\Player_New\EnemyController_New.cs" />
      <Compile Include="Assets\Scripts\Player_New\GameState_TurretTag.cs" />
      <Compile Include="Assets\Scripts\Player_New\PlayerController_New.cs" />

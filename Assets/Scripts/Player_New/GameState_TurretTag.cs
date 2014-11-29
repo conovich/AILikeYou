@@ -6,6 +6,7 @@ public class GameState_TurretTag : MonoBehaviour {
 	public PlayerController_New PlayerOne;
 	public Turret TurretOne;
 
+	public AIStateController myAIStateController;
 	public SceneStateController mySceneStateController;
 	public GameObject GUIBackgroundPlane;
 
@@ -17,6 +18,7 @@ public class GameState_TurretTag : MonoBehaviour {
 		InGame,
 		InEnd
 	}
+
 	
 	public static GameState_TurretTag _instance;
 	
