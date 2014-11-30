@@ -23,12 +23,12 @@ public class PlayerController_New : MonoBehaviour {
 	public Transform duckingTransform;
 
 	//INTERNAL STATES
-	public bool isJumping;
-	public bool isDucking;
-	public bool shieldOn;
-	public bool hasTaggedTurret;
-	public bool isMovingForward;
-	public bool isMovingBackward;
+	public bool isJumping = false;
+	public bool isDucking = false;
+	public bool shieldOn = false;
+	public bool hasTaggedTurret = false;
+	public bool isMovingForward = false;
+	public bool isMovingBackward = false;
 
 	//STATE VARIABLES
 	public int healthState{ get{ return myHealthController.currentHealth; } }

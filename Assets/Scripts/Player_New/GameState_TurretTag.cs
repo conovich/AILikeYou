@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class GameState_TurretTag : MonoBehaviour {
-	
+
 	public PlayerController_New PlayerOne;
 	public Turret TurretOne;
 

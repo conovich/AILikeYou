@@ -25,6 +25,7 @@ public class AIController_New: MonoBehaviour {
 
 	public bool ShouldCreateNewActions;
 	public GameObject AIAction_BasicPrefab;
+	public float initActionValue;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +50,7 @@ public class AIController_New: MonoBehaviour {
 
 	public string[] actionNames;
 	public string newFolderName;
+	public int numActions { get { return GetNumActions(); } }
 
 	public List<GameObject> actionObjList;
 	//public List<AIAction> actionList;
@@ -72,8 +74,16 @@ public class AIController_New: MonoBehaviour {
 				newActionObject.transform.parent = transform;
 				actionObjList.Add(newActionObject);
 				//actionObjList.Add((GameObject)AssetsInActionFolder[i]);
+				if(ShouldCreateNewActions){
+					AIAction_New newAction = newActionObject.GetComponent<AIAction_New>();
+					newAction.myAIController = GetComponent<AIController_New>();
+				}
 			}
 		}
+	}
+
+	int GetNumActions(){
+		return actionNames.Length;
 	}
 
 	void CleanUp(){
@@ -95,7 +105,7 @@ public class AIController_New: MonoBehaviour {
 	//getting hurt
 	//moving further from target
 	void CheckPlayerStatus_Negative(){
-		Debug.Log("NEGATIVE PLAYER STATUS");
+		//Debug.Log("NEGATIVE PLAYER STATUS");
 		if(MyPlayer.shieldOn){
 			UpdateProbabilityNegative("shield");
 		}
@@ -117,7 +127,7 @@ public class AIController_New: MonoBehaviour {
 	//rebounding bullet (instead of hurting turret?)
 	//moving forward
 	void CheckPlayerStatus_Positive(){
-		Debug.Log("POSITIVE PLAYER STATUS");
+		//Debug.Log("POSITIVE PLAYER STATUS");
 		if(MyPlayer.shieldOn){
 			UpdateProbabilityPositive("shield");
 		}

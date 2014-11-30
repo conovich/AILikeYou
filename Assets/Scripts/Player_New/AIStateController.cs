@@ -14,10 +14,13 @@ public class AIStateController : MonoBehaviour {
 	int bulletHeightIndex { get { return GetBulletHeightIndex(); } }
 
 
+	public int numStateIndices;
+
+
 	int[] GetStateArray(){
 		int[] theStateArray = new int[] {healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex};
 		for(int i = 0; i < theStateArray.Length; i++){
-			Debug.Log(theStateArray[i]);
+			//Debug.Log(theStateArray[i]);
 		}
 		return theStateArray;
 	}

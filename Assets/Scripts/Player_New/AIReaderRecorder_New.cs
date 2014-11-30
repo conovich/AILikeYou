@@ -29,7 +29,7 @@ public class AIReaderRecorder_New : MonoBehaviour {
 						for(int l = 0; l < 11; l++){
 							for(int m = 0; m < 11; m++){
 								for(int n = 0; n < 3; n++){
-									myStreamWriter.WriteLine(actionList[i].gameObject.name + " " + j + " " + k + " " + l + " " + m + " " + n + " " + actionList[i].probabilityArray[j,k,l,m,n]);
+									myStreamWriter.WriteLine(actionList[i].gameObject.name + " " + j + " " + k + " " + l + " " + m + " " + n + " " + actionList[i].qValArray[j,k,l,m,n]);
 								}
 							}
 						}
@@ -69,7 +69,7 @@ public class AIReaderRecorder_New : MonoBehaviour {
 
 					if(readIndex < actionList.Count){
 						if(actionList[readIndex].name == name){
-							actionList[readIndex].probabilityArray[healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex] = probability;
+							actionList[readIndex].qValArray[healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex] = probability;
 						}
 						else{
 							Debug.Log("Actions are out of order");
