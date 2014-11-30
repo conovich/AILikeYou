@@ -36,7 +36,6 @@ public class AIAgent_New : MonoBehaviour {
 
 	IEnumerator ActionLoop(){
 		while(true){
-			Debug.Log("oh hey");
 			if(!MyPlayer.isDucking && !MyPlayer.isJumping && !MyPlayer.isMovingBackward && !MyPlayer.isMovingForward && !MyPlayer.shieldOn){
 				ExecuteAction();
 			}

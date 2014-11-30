@@ -177,7 +177,9 @@ public class PlayerController_New : MonoBehaviour {
 	IEnumerator MoveForwardCoroutine(){
 
 		isMovingForward = true;
-		MoveForwardDelegate(); //isMovingForward MUST BE TRUE BEFORE CALLING THIS
+		if(MoveForwardDelegate != null){
+			MoveForwardDelegate(); //isMovingForward MUST BE TRUE BEFORE CALLING THIS
+		}
 		transform.position += Vector3.right*moveIncrement;
 		DoShadowCost(moveCost);
 		AddToShadowCosts_Distance();
@@ -191,7 +193,9 @@ public class PlayerController_New : MonoBehaviour {
 	
 	IEnumerator MoveBackwardCoroutine(){
 		isMovingBackward = true;
-		MoveBackwardDelegate(); //isMovingBackward MUST BE TRUE BEFORE CALLING THIS
+		if(MoveBackwardDelegate != null){
+			MoveBackwardDelegate(); //isMovingBackward MUST BE TRUE BEFORE CALLING THIS
+		}
 		transform.position += Vector3.left*moveIncrement;
 		DoShadowCost(moveCost);
 		SubFromShadowCosts_Distance();
