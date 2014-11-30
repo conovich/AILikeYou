@@ -47,11 +47,15 @@ public class Shield : MonoBehaviour {
 	}
 
 	IEnumerator FadeInShieldForTime(PlayerController_New player){
+		float currentTime = 0;
 		while(renderer.material.color.a != fadeInColor.a && collider.enabled){
 			renderer.material.color = Color.Lerp (renderer.material.color, fadeInColor, Time.deltaTime*fadeSpeed);
+			currentTime += Time.deltaTime;
+			if(currentTime >= shieldTime){
+				renderer.material.color = fadeInColor;
+			}
 			yield return 0;
 		}
-		yield return new WaitForSeconds(shieldTime);
 		player.PlayerShieldOff();
 	}
 	
