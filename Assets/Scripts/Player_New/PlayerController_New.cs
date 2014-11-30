@@ -231,7 +231,12 @@ public class PlayerController_New : MonoBehaviour {
 		if(!shieldOn){
 			DoShadowCost(shieldCost);
 			shieldOn = true;
-			shield.Activate();
+			if(!OVERRIDE_KEYPRESS_CONTROLS){
+				shield.Activate();
+			}
+			else{
+				shield.ActivateForTime(this);
+			}
 		}
 	}
 

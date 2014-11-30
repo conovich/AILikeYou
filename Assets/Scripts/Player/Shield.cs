@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Shield : MonoBehaviour {
 	GameState game { get { return GameState.Instance; } }
-
+	public float shieldTime;
 	public float fadeSpeed;
 
 	Color fadeInColor;
@@ -28,6 +28,11 @@ public class Shield : MonoBehaviour {
 		StartCoroutine(FadeInShield());
 	}
 
+	public void ActivateForTime(PlayerController_New player){
+		collider.enabled = true;
+		StartCoroutine(FadeInShieldForTime(player));
+	}
+
 	public void Deactivate(){
 		collider.enabled = false;
 		StartCoroutine(FadeOutShield());
@@ -39,6 +44,15 @@ public class Shield : MonoBehaviour {
 			renderer.material.color = Color.Lerp (renderer.material.color, fadeInColor, Time.deltaTime*fadeSpeed);
 			yield return 0;
 		}
+	}
+
+	IEnumerator FadeInShieldForTime(PlayerController_New player){
+		while(renderer.material.color.a != fadeInColor.a && collider.enabled){
+			renderer.material.color = Color.Lerp (renderer.material.color, fadeInColor, Time.deltaTime*fadeSpeed);
+			yield return 0;
+		}
+		yield return new WaitForSeconds(shieldTime);
+		player.PlayerShieldOff();
 	}
 	
 	IEnumerator FadeOutShield(){
