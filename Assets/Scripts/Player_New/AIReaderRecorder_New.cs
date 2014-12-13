@@ -91,9 +91,6 @@ public class AIReaderRecorder_New : MonoBehaviour {
 												}
 											//}
 										}
-										else{
-											line = myStreamReader.ReadLine();
-										}
 										line = myStreamReader.ReadLine();
 										readIndex++;
 									}
