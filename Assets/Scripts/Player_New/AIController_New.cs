@@ -38,11 +38,20 @@ public class AIController_New: MonoBehaviour {
 
 		if(ShouldCreateNewActions){
 			InstantiateNewActions();
+			LinkActions();
 		}
 		else{
+			LinkActions();
+			InitActions();
 			LoadProbabilities();
 		}
-		LinkActions();
+	}
+
+	void InitActions(){
+		List<AIAction_New> actionList = GetAIActionList();
+		for(int i = 0; i < actionList.Count; i++){
+			actionList[i].Init();
+		}
 	}
 
 

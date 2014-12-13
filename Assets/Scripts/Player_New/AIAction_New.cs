@@ -26,16 +26,20 @@ public class AIAction_New : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+	}
+
+
+	public void Init(){ //call this from the ai action controller
 		qValArray = new float[11,11,11,11,3];
 		if(myAIController){
 			if(myAIController.ShouldCreateNewActions){
-				Init();
+				InitQValArray();
 			}
 		}
 	}
 
-
-	void Init(){
+	void InitQValArray(){
 		for(int j = 0; j < 11; j++){
 			for(int k = 0; k < 11; k++){
 				for(int l = 0; l < 11; l++){
@@ -69,14 +73,14 @@ public class AIAction_New : MonoBehaviour {
 
 		float q_probability = GetCurrentProbability();
 
-		//Debug.Log ("before: " + q_probability);
+		Debug.Log ("before: " + q_probability);
 
 		//k_iteration++;
 		q_probability = q_probability + alphaWeight*(reward - q_probability);
 
 		qValArray[state[0], state[1], state[2], state[3], state[4]] = q_probability;
 
-		//Debug.Log ("after: " + q_probability);
+		Debug.Log ("after: " + q_probability);
 	}
 	
 }

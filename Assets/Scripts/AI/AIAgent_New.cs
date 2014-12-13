@@ -90,7 +90,7 @@ public class AIAgent_New : MonoBehaviour {
 		CalculateBPoints(out bPoints, probabilityArray);
 
 		float randomFloat = Random.Range (0.0f, 1.0f);
-		Debug.Log("random float: " + randomFloat);
+		//Debug.Log("random float: " + randomFloat);
 
 		//find the bPoint that randomFloat is closest to
 		float minDifference = randomFloat - bPoints[0];

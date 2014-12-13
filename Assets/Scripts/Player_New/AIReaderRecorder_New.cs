@@ -54,30 +54,55 @@ public class AIReaderRecorder_New : MonoBehaviour {
 			line = myStreamReader.ReadLine();
 
 			Debug.Log("reading");
-			while (line != null){
-				string[] splitLine = line.Split(' ');
-				if(splitLine.Length == 7){
-					string name = splitLine[0];
-					int healthIndex = int.Parse(splitLine[1]);
-					int turretHealthIndex = int.Parse(splitLine[2]);
-					int turretDistanceIndex = int.Parse(splitLine[3]);
-					int bulletDistanceIndex = int.Parse(splitLine[4]);
-					int bulletHeightIndex = int.Parse(splitLine[5]);
-					float probability = float.Parse(splitLine[6]);
-					//string probability = splitLine[1];
-					//string iteration = splitLine[2];
+			Debug.Log(actionList.Count);
 
-					if(readIndex < actionList.Count){
-						if(actionList[readIndex].name == name){
-							actionList[readIndex].qValArray[healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex] = probability;
-						}
-						else{
-							Debug.Log("Actions are out of order");
+
+			for(int i = 0; i < actionList.Count; i++){
+				for(int j = 0; j < 11; j++){
+					for(int k = 0; k < 11; k++){
+						for(int l = 0; l < 11; l++){
+							for(int m = 0; m < 11; m++){
+								for(int n = 0; n < 3; n++){
+
+									if (line != null){
+										while(line == ""){
+											line = myStreamReader.ReadLine();
+											Debug.Log("next line");
+										}
+										string[] splitLine = line.Split(' ');
+										if(splitLine.Length == 7){
+											string name = splitLine[0];
+											int healthIndex = int.Parse(splitLine[1]);
+											int turretHealthIndex = int.Parse(splitLine[2]);
+											int turretDistanceIndex = int.Parse(splitLine[3]);
+											int bulletDistanceIndex = int.Parse(splitLine[4]);
+											int bulletHeightIndex = int.Parse(splitLine[5]);
+											float qValue = float.Parse(splitLine[6]);
+											//string probability = splitLine[1];
+											//string iteration = splitLine[2];
+
+											//if(readIndex < actionList.Count){
+												if(actionList[i].name == name){
+													actionList[i].qValArray[healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex] = qValue;
+												}
+												else{
+													Debug.Log("Actions are out of order");
+													Debug.Log("actionlist name: " + actionList[i].name + " read name " + name);
+												}
+											//}
+										}
+										else{
+											line = myStreamReader.ReadLine();
+										}
+										line = myStreamReader.ReadLine();
+										readIndex++;
+									}
+
+								}
+							}
 						}
 					}
 				}
-				line = myStreamReader.ReadLine();
-				readIndex++;
 			}
 		}
 		else{
