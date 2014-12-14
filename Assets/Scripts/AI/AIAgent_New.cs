@@ -35,7 +35,7 @@ public class AIAgent_New : MonoBehaviour {
 	}
 
 	IEnumerator ActionLoop(){
-		while(true){
+		while(game.currentState == GameState_TurretTag.State.InGame){
 			if(!MyPlayer.isDucking && !MyPlayer.isJumping && !MyPlayer.isMovingBackward && !MyPlayer.isMovingForward && !MyPlayer.shieldOn){
 				ExecuteAction();
 			}

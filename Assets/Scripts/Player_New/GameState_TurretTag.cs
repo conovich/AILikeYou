@@ -4,6 +4,7 @@ using System.Collections;
 public class GameState_TurretTag : MonoBehaviour {
 
 	public PlayerController_New PlayerOne;
+	public PlayerController_New AIAgentOne;
 	public Turret TurretOne;
 
 	public AIStateController myAIStateController;
@@ -97,6 +98,7 @@ public class GameState_TurretTag : MonoBehaviour {
 	void Reset(){
 		PlayerOne.Reset();
 		TurretOne.Reset();
+		AIAgentOne.Reset();
 	}
 	
 	void StartInstructions(){
