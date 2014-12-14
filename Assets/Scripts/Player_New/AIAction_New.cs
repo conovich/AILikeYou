@@ -73,14 +73,14 @@ public class AIAction_New : MonoBehaviour {
 
 		float q_probability = GetCurrentProbability();
 
-		Debug.Log ("before: " + q_probability);
+//		Debug.Log ("before: " + q_probability);
 
 		//k_iteration++;
 		q_probability = q_probability + alphaWeight*(reward - q_probability);
 
 		qValArray[state[0], state[1], state[2], state[3], state[4]] = q_probability;
 
-		Debug.Log ("after: " + q_probability);
+//		Debug.Log ("after: " + q_probability);
 	}
 	
 }

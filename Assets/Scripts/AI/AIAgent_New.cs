@@ -49,10 +49,10 @@ public class AIAgent_New : MonoBehaviour {
 		AIAction_New chosenAction = ChooseAction();
 
 		string name = chosenAction.name;
-		Debug.Log("orig name: " + name);
+		//Debug.Log("orig name: " + name);
 		name = Regex.Replace( chosenAction.name, "(Clone)", "" );
 		name = Regex.Replace( name, "[()]", "" );
-		Debug.Log("new name: " + name);
+		//Debug.Log("new name: " + name);
 
 		switch( name ){
 		case "jump" :
@@ -103,7 +103,7 @@ public class AIAgent_New : MonoBehaviour {
 			}
 		}
 
-		Debug.Log("bpoint index: " + bPointIndex);
+		//Debug.Log("bpoint index: " + bPointIndex);
 		AIAction_New chosenAction = MyAIController.GetAIActionList()[bPointIndex];
 
 		return chosenAction;
@@ -122,10 +122,11 @@ public class AIAgent_New : MonoBehaviour {
 		for(int i = 0; i < probabilityArray.Length; i++){
 			float qVal = actionList[i].qValArray[stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]];
 			sum += qVal;
-			probabilityArray[i] = qVal; //TODO: FIX PROBABILITY ARRAY FILLING. THIS IS WRONG.
-			Debug.Log("probability index: " + i + " value: " + probabilityArray[i]);
+			probabilityArray[i] = qVal; //init probability array with the qvalues
+			//Debug.Log("probability index: " + i + " value: " + probabilityArray[i]);
 		}
 	
+		//average to get the actual probabilities
 		for(int i = 0; i < probabilityArray.Length; i++){
 			if(sum != 0){
 				probabilityArray[i] = probabilityArray[i]/sum;
@@ -147,7 +148,7 @@ public class AIAgent_New : MonoBehaviour {
 		bPoints[0] = 0;
 		for(int i = 1; i < bPoints.Length; i++){
 			bPoints[i] = bPoints[i-1] + probabilityArray[i-1];
-			Debug.Log("b point index: " + i + " value: " + bPoints[i]);
+			//Debug.Log("b point index: " + i + " value: " + bPoints[i]);
 		}
 	}
 

@@ -39,6 +39,7 @@ public class AIController_New: MonoBehaviour {
 		if(ShouldCreateNewActions){
 			InstantiateNewActions();
 			LinkActions();
+			InitActions();
 		}
 		else{
 			LinkActions();
@@ -126,6 +127,7 @@ public class AIController_New: MonoBehaviour {
 		}
 		else if(MyPlayer.isMovingForward){
 			UpdateProbabilityNegative("moveForward");
+			Debug.Log("negative moving forward");
 		}
 		else if(MyPlayer.isMovingBackward){
 			UpdateProbabilityNegative("moveBackward");
@@ -148,6 +150,7 @@ public class AIController_New: MonoBehaviour {
 		}
 		else if(MyPlayer.isMovingForward){
 			UpdateProbabilityPositive("moveForward");
+			Debug.Log("positive moving forward");
 		}
 		else if(MyPlayer.isMovingBackward){
 			UpdateProbabilityPositive("moveBackward");
