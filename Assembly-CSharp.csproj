@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Health\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Health\HealthController.cs" />
      <Compile Include="Assets\Scripts\Health\HealthNode.cs" />
+     <Compile Include="Assets\Scripts\LinearMover.cs" />
      <Compile Include="Assets\Scripts\Player\AttackDefenseControls.cs" />
      <Compile Include="Assets\Scripts\Player\Kicker.cs" />
      <Compile Include="Assets\Scripts\Player\MovementControls.cs" />
@@ -76,7 +77,6 @@
      <Compile Include="Assets\Scripts\Player_New\GameState_TurretTag.cs" />
      <Compile Include="Assets\Scripts\Player_New\PlayerController_New.cs" />
      <Compile Include="Assets\Scripts\Player_New\Turret.cs" />
-     <Compile Include="Assets\Scripts\RandomLinearMover.cs" />
      <Compile Include="Assets\Scripts\RandomOscillator.cs" />
      <Compile Include="Assets\Scripts\SceneStateController.cs" />
      <Compile Include="Assets\Scripts\TrailRendererController.cs" />

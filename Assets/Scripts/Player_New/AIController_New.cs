@@ -27,14 +27,24 @@ public class AIController_New: MonoBehaviour {
 	public GameObject AIAction_BasicPrefab;
 	public float initActionValue;
 
+	public List<AIAction_New> aiActionList { get { return GetAIActionList(); } }
+
+	int currentNumRewards = 0;
+	string currentAction = "";
+
+
 	// Use this for initialization
 	void Start () {
-
+		/*
 		MyPlayer.myHealthController.RemoveHealthDelegate += CheckPlayerStatus_Negative;
 		MyPlayer.ReboundBulletDelegate += CheckPlayerStatus_Positive;
 		MyPlayer.MoveForwardDelegate += CheckPlayerStatus_Positive;
 		MyPlayer.MoveBackwardDelegate += CheckPlayerStatus_Negative;
-
+*/
+		MyPlayer.myHealthController.RemoveHealthDelegate += DecrementNumPlayerRewards;
+		MyPlayer.ReboundBulletDelegate += IncrementNumPlayerRewards;
+		MyPlayer.MoveForwardDelegate += IncrementNumPlayerRewards;
+		MyPlayer.MoveBackwardDelegate += DecrementNumPlayerRewards;
 
 		if(ShouldCreateNewActions){
 			InstantiateNewActions();
@@ -109,9 +119,110 @@ public class AIController_New: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//CheckPlayerStatus();
+
+		//update state arrays
+		game.myAIStateController.UpdateStateArrays();
+
+		//update qvalues if oustanding rewards exist -- rewards != 0
+		UpdateQValues();
+
+		//check for player input -- depending on the input, create rewards, store action executed
+		CheckPlayerStatus();
+
+
+		//else, if no player input, rewards = 0
+
+
+
 	}
 
+	void UpdateQValues(){
+		GameObject actionToUpdateObj = FindInActionList(currentAction);
+
+		for(int i = 0; i < Mathf.Abs(currentNumRewards); i++){
+
+			Debug.Log("Updating QValues & there are rewards!");
+
+			/*if(i < 0){
+				CheckPlayerStatus_Negative();
+			}
+			else{
+				CheckPlayerStatus_Positive();
+			}*/
+			if(actionToUpdateObj != null){
+				//actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Positive_reward);
+				AIAction_New actionToUpdate = actionToUpdateObj.GetComponent<AIAction_New>();
+
+				float alphaWeight = 0.1f; //how fast does learning take place? //TODO: take this out of AIAction_New or something...
+				float gammaWeight = 0.5f; //how important is future learning?
+
+				int[] oldState = game.myAIStateController.lastStateArray;
+
+				float newQVal = ( 1.0f - alphaWeight ) * ( actionToUpdate.qValArray[oldState[0], oldState[1], oldState[2], oldState[3], oldState[4]] );
+
+				float reward = Positive_reward;
+				if(currentNumRewards < 0){
+					reward = Negative_reward;
+				}
+				newQVal += alphaWeight * ( reward + ( gammaWeight * GetMaxQValOfNextPossibleActions() ) );
+
+				actionToUpdate.qValArray[oldState[0], oldState[1], oldState[2], oldState[3], oldState[4]] = newQVal;
+
+				Debug.Log("new q value!: " + actionToUpdate.name + " " + newQVal);
+			}
+
+		}
+
+
+	}
+
+	float GetMaxQValOfNextPossibleActions(){
+		float maxQVal = 0;
+		int[] currentState = game.myAIStateController.stateArray;
+
+		for ( int i = 0; i < aiActionList.Count; i++){
+
+			float tempQVal = aiActionList[i].qValArray[currentState[0], currentState[1], currentState[2], currentState[3], currentState[4]];
+
+			if( tempQVal > maxQVal){
+				maxQVal = tempQVal;
+			}
+		}
+
+		return maxQVal;
+
+	}
+
+	void CheckPlayerStatus(){
+		currentNumRewards = 0;
+		currentAction = null;
+
+		if(MyPlayer.shieldOn){
+			currentAction = "shield";
+		}
+		else if(MyPlayer.isJumping){
+			currentAction = "jump";
+		}
+		else if(MyPlayer.isDucking){
+			currentAction = "duck";
+		}
+		else if(MyPlayer.isMovingForward){
+			currentAction = "moveForward";
+		}
+		else if(MyPlayer.isMovingBackward){
+			currentAction = "moveBackward";
+		}
+	}
+
+	void IncrementNumPlayerRewards(){
+		currentNumRewards++;
+	}
+
+	void DecrementNumPlayerRewards(){
+		currentNumRewards--;
+	}
+
+	/*
 	//getting hurt
 	//moving further from target
 	void CheckPlayerStatus_Negative(){
@@ -156,7 +267,7 @@ public class AIController_New: MonoBehaviour {
 			UpdateProbabilityPositive("moveBackward");
 		}
 	}
-
+*/
 
 	public GameObject FindInActionList(string name){
 		for(int i = 0; i < actionObjList.Count; i++){
@@ -168,7 +279,7 @@ public class AIController_New: MonoBehaviour {
 		//Debug.Log("null object, looking for" + name);
 		return null;
 	}
-
+/*
 	public void UpdateProbabilityPositive(string actionName){
 		//Debug.Log("updating POSITIVE probability" + actionName);
 		GameObject actionToUpdate = FindInActionList(actionName);
@@ -184,8 +295,8 @@ public class AIController_New: MonoBehaviour {
 			actionToUpdate.GetComponent<AIAction_New>().UpdateWeightedProbability(Negative_reward);
 		}
 	}
-
-	public List<AIAction_New> GetAIActionList(){
+*/
+	List<AIAction_New> GetAIActionList(){
 		List<AIAction_New> AIActionList = new List<AIAction_New>();
 		for(int i = 0; i < transform.childCount; i++){
 			GameObject child = transform.GetChild(i).gameObject;
@@ -199,11 +310,11 @@ public class AIController_New: MonoBehaviour {
 	}
 
 	void LoadProbabilities(){
-		MyReaderRecorder.ReadActionsFromFile(GetAIActionList(), newFolderName);
+		MyReaderRecorder.ReadActionsFromFile(aiActionList, newFolderName);
 	}
 
 	void RecordProbabilities(){
-		MyReaderRecorder.WriteActionsToFile(GetAIActionList(), newFolderName);
+		MyReaderRecorder.WriteActionsToFile(aiActionList, newFolderName);
 	}
 
 	void OnApplicationQuit(){

@@ -104,7 +104,7 @@ public class AIAgent_New : MonoBehaviour {
 		}
 
 		//Debug.Log("bpoint index: " + bPointIndex);
-		AIAction_New chosenAction = MyAIController.GetAIActionList()[bPointIndex];
+		AIAction_New chosenAction = MyAIController.aiActionList[bPointIndex];
 
 		return chosenAction;
 
@@ -112,7 +112,7 @@ public class AIAgent_New : MonoBehaviour {
 
 	//sums q values, also populates probability array for optimization
 	void SumQValues(int[] stateArray, out float sumQValues, out float[] probabilityArray){
-		List<AIAction_New> actionList = MyAIController.GetAIActionList();
+		List<AIAction_New> actionList = MyAIController.aiActionList;
 
 		int numActions = MyAIController.numActions;
 		probabilityArray = new float[numActions];
@@ -152,6 +152,8 @@ public class AIAgent_New : MonoBehaviour {
 		}
 	}
 
+
+	/*
 	//TODO: RE-IMPLEMENT
 	//heap sort
 	List<AIAction_New> SortList(List<AIAction_New> actionList){
@@ -180,9 +182,12 @@ public class AIAgent_New : MonoBehaviour {
 				actionListCopy.Remove(highestProbabilityAction);
 				
 		}*/
-		
+		/*
 		return sortedList;
 	}
+*/
+	/*
+
 
 	//N should be 0 to # of actions
 	AIAction_New RetrieveNthHighestProbabilityAction(int N){
@@ -193,7 +198,7 @@ public class AIAgent_New : MonoBehaviour {
 		Debug.Log("Nth" + N);
 		Debug.Log("sorted list count:" + actionList.Count);
 */
-		if(actionList.Count > N){
+/*		if(actionList.Count > N){
 			return actionList[N];
 		}
 		else{
@@ -201,5 +206,5 @@ public class AIAgent_New : MonoBehaviour {
 		}
 	}
 
-
+*/
 }

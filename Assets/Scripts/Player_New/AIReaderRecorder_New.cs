@@ -30,6 +30,11 @@ public class AIReaderRecorder_New : MonoBehaviour {
 							for(int m = 0; m < 11; m++){
 								for(int n = 0; n < 3; n++){
 									myStreamWriter.WriteLine(actionList[i].gameObject.name + " " + j + " " + k + " " + l + " " + m + " " + n + " " + actionList[i].qValArray[j,k,l,m,n]);
+
+
+									if(actionList[i].qValArray[j,k,l,m,n] != 0.5f){
+										Debug.Log("YAYYYYY WRITING " + actionList[i].qValArray[j,k,l,m,n]);
+									}
 								}
 							}
 						}

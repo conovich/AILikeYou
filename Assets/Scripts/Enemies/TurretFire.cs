@@ -10,6 +10,9 @@ public class TurretFire : MonoBehaviour {
 
 	public float forwardOffset;
 
+	public float timeSinceFired;
+
+
 
 	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
 	
@@ -20,7 +23,7 @@ public class TurretFire : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		timeSinceFired += Time.deltaTime;
 	}
 
 	/*IEnumerator SpawnBullets(){
@@ -37,6 +40,8 @@ public class TurretFire : MonoBehaviour {
 			Vector3 firingDirection = bulletSpawnTransform.forward;
 			
 			newBullet.GetComponent<Bullet>().Fire(firingDirection*firingSpeed);
+
+			timeSinceFired = 0;
 		}
 	}
 }

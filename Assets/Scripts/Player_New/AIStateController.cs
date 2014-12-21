@@ -6,18 +6,32 @@ public class AIStateController : MonoBehaviour {
 	GameState_TurretTag game { get { return GameState_TurretTag.Instance; } }
 	
 	//AI state values
-	public int[] stateArray { get { return GetStateArray(); } }
+	public int[] stateArray;
+	public int[] lastStateArray;	
 	int healthIndex { get { return GetHealthIndex(); } }
 	int turretHealthIndex { get { return GetTurretHealthIndex(); } }
 	int turretDistanceIndex { get { return GetTurretDistanceIndex(); } }
+	int turretHeight { get { return GetTurretHeight(); } }
+	int secondsSinceTurretFire { get { return GetSecondsSinceTurretFire(); } }
+	int isTurretFiring { get { return GetIsTurretFiring(); } }
 	int bulletDistanceIndex { get { return GetBulletDistanceIndex(); } }
 	int bulletHeightIndex { get { return GetBulletHeightIndex(); } }
 
 
 	public int numStateIndices;
 
+	void Start(){
+		stateArray = GetCurrentStateArray();
+		lastStateArray = stateArray;
+	}
 
-	int[] GetStateArray(){
+	public void UpdateStateArrays(){ //should update this before probabilities get updated!!!
+		lastStateArray = stateArray;
+		stateArray = GetCurrentStateArray();
+	}
+
+	int[] GetCurrentStateArray(){
+		//compute new state array
 		int[] theStateArray = new int[] {healthIndex, turretHealthIndex, turretDistanceIndex, bulletDistanceIndex, bulletHeightIndex};
 		for(int i = 0; i < theStateArray.Length; i++){
 			//Debug.Log(theStateArray[i]);
@@ -42,7 +56,24 @@ public class AIStateController : MonoBehaviour {
 		}
 		return distanceIndex;
 	}
-	
+
+	int GetTurretHeight(){
+		return game.TurretOne.GetHeight();
+	}
+
+	int GetSecondsSinceTurretFire(){
+		return (int)(game.TurretOne.GetTimeSinceLastFire());
+	}
+
+	int GetIsTurretFiring(){
+		if(secondsSinceTurretFire == 0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
 	int GetBulletDistanceIndex(){
 		int distanceIndex = game.PlayerOne.distanceToBullet;
 		if(distanceIndex > 10){

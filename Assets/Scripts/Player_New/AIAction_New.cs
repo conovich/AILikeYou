@@ -21,7 +21,8 @@ public class AIAction_New : MonoBehaviour {
 	*/
 	public float[ , , , , ] qValArray;
 
-	float alphaWeight = 0.5f;
+	//OLD
+//	float alphaWeight = 0.5f;
 
 
 	// Use this for initialization
@@ -67,6 +68,9 @@ public class AIAction_New : MonoBehaviour {
 		return q_probability;
 	}
 
+
+
+	/* OLD
 	//Qk=Qvk-1+a[rk-Qk-1]    ---> Qk=Qvk-1+a[rk-(maxOfFutureState)Qk-1]
 	public void UpdateWeightedProbability(float reward){
 		int[] state = game.myAIStateController.stateArray;
@@ -82,5 +86,5 @@ public class AIAction_New : MonoBehaviour {
 
 //		Debug.Log ("after: " + q_probability);
 	}
-	
+	*/
 }
